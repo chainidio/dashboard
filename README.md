@@ -1,11 +1,11 @@
 
 <p align="center">
-  <img title="chainid" src='https://chainid.io/images/logo_alt.png' />
+  <img title="chainid" src='assets/images/logo_alt.png' />
 </p>
 Dashboard is a lightweight management UI which allows you to **easily** manage your different Docker environments (Docker hosts or Swarm clusters).
 ## Demo
 
-<img src="https://chainid.io/images/screenshots/chainid.gif" width="77%"/>
+<img src="assets/images/screenshots/chainid.gif" width="77%"/>
 
 You can try out the public demo instance: http://demo.chainid.io/ (login with the username **admin** and the password **12345**).
 
