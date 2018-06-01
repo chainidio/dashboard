@@ -1,0 +1,17 @@
+[Unit]
+Description=Chainid.io management ui
+After=docker.service
+Wants=docker.service
+Wants=docker-latest.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+Environment=ASSETS=/usr/share/chainid
+Environment=DBFILES=/var/lib/chainid
+EnvironmentFile=-/etc/sysconfig/%p
+ExecStart=/usr/sbin/chainid -a $ASSETS -d $DBFILES
+
+[Install]
+WantedBy=multi-user.target
