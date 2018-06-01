@@ -1,0 +1,17 @@
+angular.module('chainid.docker').component('containerNetworksDatatable', {
+  templateUrl: 'app/docker/components/datatables/container-networks-datatable/containerNetworksDatatable.html',
+  controller: 'GenericDatatableController',
+  bindings: {
+    title: '@',
+    titleIcon: '@',
+    dataset: '<',
+    tableKey: '@',
+    container: '<',
+    availableNetworks: '<',
+    joinNetworkAction: '<',
+    joinNetworkActionInProgress: '<',
+    leaveNetworkActionInProgress: '<',
+    leaveNetworkAction: '<',
+    nodeName: '<'
+  }
+});
