@@ -1,0 +1,74 @@
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+  <div class="sidebar-header">
+    <a ng-click="toggleSidebar()" class="interactive">
+      <img ng-if="logo" ng-src="{{ logo }}" class="img-responsive logo">
+      <img ng-if="!logo" src="images/logo.png" class="img-responsive logo" alt="Chain Platform">
+      <span class="menu-icon glyphicon glyphicon-transfer"></span>
+    </a>
+  </div>
+  <div class="sidebar-content">
+  <ul class="sidebar">
+    <endpoint-selector ng-if="endpoints && groups"
+      endpoints="endpoints"
+      groups="groups"
+      select-endpoint="switchEndpoint"
+    ></endpoint-selector>
+    <li class="sidebar-title"><span class="endpoint-name">{{ activeEndpoint.Name }}</span></li>
+    <azure-sidebar-content ng-if="applicationState.endpoint.mode.provider === 'AZURE'">
+    </azure-sidebar-content>
+    <docker-sidebar-content ng-if="applicationState.endpoint.mode.provider !== 'AZURE'"
+      endpoint-api-version="applicationState.endpoint.apiVersion"
+      swarm-management="applicationState.endpoint.mode.provider === 'DOCKER_SWARM_MODE' && applicationState.endpoint.mode.role === 'MANAGER'"
+      standalone-management="applicationState.endpoint.mode.provider === 'DOCKER_STANDALONE' || applicationState.endpoint.mode.provider === 'VMWARE_VIC'"
+      admin-access="!applicationState.application.authentication || isAdmin"
+      external-contributions="displayExternalContributors"
+      sidebar-toggled-on="toggle"
+      current-state="$state.current.name"
+    ></docker-sidebar-content>
+    <li class="sidebar-title" ng-if="applicationState.endpoint.extensions.length > 0">
+      <span>Extensions</span>
+    </li>
+    <li class="sidebar-list" ng-if="applicationState.endpoint.extensions.indexOf('storidge') !== -1 && applicationState.endpoint.mode.provider === 'DOCKER_SWARM_MODE' && applicationState.endpoint.mode.role === 'MANAGER'">
+      <a ui-sref="storidge.cluster" ui-sref-active="active">Storidge <span class="menu-icon fa fa-bolt fa-fw"></span></a>
+      <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'storidge.cluster' || $state.current.name === 'storidge.profiles' || $state.current.name === 'storidge.monitor' || $state.current.name === 'storidge.profiles.new' || $state.current.name === 'storidge.profiles.profile')">
+        <a ui-sref="storidge.monitor" ui-sref-active="active">Monitor</a>
+      </div>
+      <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'storidge.cluster' || $state.current.name === 'storidge.profiles' || $state.current.name === 'storidge.monitor' || $state.current.name === 'storidge.profiles.new' || $state.current.name === 'storidge.profiles.profile')">
+        <a ui-sref="storidge.profiles" ui-sref-active="active">Profiles</a>
+      </div>
+    </li>
+    <li class="sidebar-title" ng-if="!applicationState.application.authentication || isAdmin || isTeamLeader">
+      <span>Chain Platform settings</span>
+    </li>
+    <li class="sidebar-list" ng-if="applicationState.application.authentication && (isAdmin || isTeamLeader)">
+      <a ui-sref="chainid.users" ui-sref-active="active">User management <span class="menu-icon fa fa-users fa-fw"></span></a>
+      <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'chainid.users' || $state.current.name === 'chainid.users.user' || $state.current.name === 'chainid.teams' || $state.current.name === 'chainid.teams.team')">
+        <a ui-sref="chainid.teams" ui-sref-active="active">Teams</a>
+      </div>
+    </li>
+    <li class="sidebar-list" ng-if="!applicationState.application.authentication || isAdmin">
+      <a ui-sref="chainid.endpoints" ui-sref-active="active">Endpoints <span class="menu-icon fa fa-plug fa-fw"></span></a>
+      <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'chainid.endpoints' || $state.current.name === 'chainid.endpoints.endpoint' || $state.current.name === 'chainid.endpoints.endpoint.access' || $state.current.name === 'chainid.groups' || $state.current.name === 'chainid.groups.group' || $state.current.name === 'chainid.groups.group.access' || $state.current.name === 'chainid.groups.new')">
+        <a ui-sref="chainid.groups" ui-sref-active="active">Groups</a>
+      </div>
+    </li>
+    <li class="sidebar-list" ng-if="!applicationState.application.authentication || isAdmin">
+      <a ui-sref="chainid.registries" ui-sref-active="active">Registries <span class="menu-icon fa fa-database fa-fw"></span></a>
+    </li>
+    <li class="sidebar-list" ng-if="!applicationState.application.authentication || isAdmin">
+      <a ui-sref="chainid.settings" ui-sref-active="active">Settings <span class="menu-icon fa fa-cogs fa-fw"></span></a>
+      <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'chainid.settings' || $state.current.name === 'chainid.settings.authentication' || $state.current.name === 'chainid.about') && applicationState.application.authentication && isAdmin">
+        <a ui-sref="chainid.settings.authentication" ui-sref-active="active">Authentication</a></div>
+      <div class="sidebar-sublist" ng-if="toggle && ($state.current.name === 'chainid.settings' || $state.current.name === 'chainid.settings.authentication' || $state.current.name === 'chainid.about')">
+        <a ui-sref="chainid.about" ui-sref-active="active">About</a>
+      </div>
+    </li>
+  </ul>
+  <div class="sidebar-footer-content">
+    <img src="images/logo_small.png" class="img-responsive logo" alt="Chain Platform">
+    <span class="version">{{ uiVersion }}</span>
+  </div>
+  </div>
+</div>
+<!-- End Sidebar -->
